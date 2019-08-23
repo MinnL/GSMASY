@@ -1,2 +1,2 @@
-# GSMASY
-Heroku/Flask/Text Mining
+# GS_MASY
+deploy with heroku

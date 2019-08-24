@@ -64,35 +64,6 @@ def result():
 
 
 
-def get_abstract():
-    sq = input('What do you want to search on Google Scholar?')
-    search_query = scholarly.search_pubs_query(sq)
-
-    # create title_list
-    t = []
-    # create abstract_list
-    a = []
-
-    # get google scholar title and abstract
-    limit = 500
-    for index, item in enumerate(search_query, 1):
-        # a.append('PaperID: ' + str(index) + 'Title: ' + item.bib['title'] + 'Abstract: ' + item.bib['abstract'])
-        print('PaperID: ' + str(index))
-        t.append(item.bib['title'])
-        print('Title: ' + item.bib['title'])
-        if 'abstract' in item.bib:
-            a.append(item.bib['abstract'])
-            print('Abstract: ' + item.bib['abstract'])
-        else:
-            a.append('none')
-            print('Abstract: ' + 'none')
-        if index == limit:
-            break
-
-    return
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
 

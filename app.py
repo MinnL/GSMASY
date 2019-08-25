@@ -25,7 +25,7 @@ def select():
     a = []
 
     # get google scholar title and abstract
-    limit = 5
+    limit = 15
     for index, item in enumerate(search_query, 1):
         # a.append('PaperID: ' + str(index) + 'Title: ' + item.bib['title'] + 'Abstract: ' + item.bib['abstract'])
         # print('PaperID: ' + str(index))

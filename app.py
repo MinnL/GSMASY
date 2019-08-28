@@ -111,12 +111,16 @@ def result():
 
     # get the 50 papers with highest similarity
     recomPaper50 = recomPaper[:51]
-    recomPaper50 = recomPaper50.dropna()
+    recomPaper50 = recomPaper50.dropna().reset_index(drop=True)
+    tl = recomPaper50['Title'].tolist()
+    al = recomPaper50['Abstract'].tolist()
+    sl = recomPaper50['Similar_score'].tolist()
+    listc = [[x, y, z] for x, y, z in zip(tl, al, sl)]
     #
     # output file
-    recomPaper50.to_csv("recom50papers.csv")
+    # recomPaper50.to_csv("recom50papers.csv")
 
-    return render_template('result.html', sid=sid, a=a, t=t)
+    return render_template('result.html', sid=sid, a=a, t=t, result=recomPaper50, lc=listc)
 
 
 

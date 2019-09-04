@@ -9,8 +9,11 @@ import pandas as pd
 import numpy as np
 from stemming.porter2 import stem
 
+
 app = Flask(__name__)
-app.secret_key = "super secret key"
+app.secret_key = "SuperSecretKey"
+
+
 
 
 
@@ -21,6 +24,9 @@ def search():
 
 @app.route('/selectpaper', methods=['POST'])
 def select():
+
+    # get search result
+
     sq = request.form['sq']
     search_query = scholarly.search_pubs_query(sq)
 
@@ -32,7 +38,7 @@ def select():
     a = []
 
     # get google scholar title and abstract
-    limit = 15
+    limit = 10
     for index, item in enumerate(search_query, 1):
         # a.append('PaperID: ' + str(index) + 'Title: ' + item.bib['title'] + 'Abstract: ' + item.bib['abstract'])
         # print('PaperID: ' + str(index))
@@ -48,18 +54,23 @@ def select():
         if index == limit:
             break
     listc = [[x, y, z] for x, y, z in zip(i, t, a)]
+    # session.pop('abstract', None)
+    # session.pop('title', None)
+    # session.clear()
     session['abstract'] = a
     session['title'] = t
+
     return render_template('selectpaper.html', titles=t, abstracts=a, lc=listc)
 
 
 @app.route('/result', methods=['POST'])
 def result():
+    # get select list
     sid = request.form['sid']
     sid = sid.split()
     sid = [int(i) for i in sid]
-    a = session.get('abstract')
-    t = session.get('title')
+    a = session.get('abstract', None)
+    t = session.get('title', None)
 
     # get selected abstract
     sa = []
@@ -116,16 +127,16 @@ def result():
     al = recomPaper50['Abstract'].tolist()
     sl = recomPaper50['Similar_score'].tolist()
     listc = [[x, y, z] for x, y, z in zip(tl, al, sl)]
-    #
+
     # output file
     # recomPaper50.to_csv("recom50papers.csv")
 
     return render_template('result.html', sid=sid, a=a, t=t, result=recomPaper50, lc=listc)
 
 
-
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 

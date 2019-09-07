@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import session
+from datetime import timedelta
 import scholarly
 from sklearn.feature_extraction import text
 from sklearn.metrics.pairwise import cosine_similarity
@@ -11,10 +12,8 @@ from stemming.porter2 import stem
 
 
 app = Flask(__name__)
-app.secret_key = "SuperSecretKey"
-
-
-
+app.secret_key = "Super_Secret_Key"
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
 
 @app.route('/')
@@ -38,7 +37,8 @@ def select():
     a = []
 
     # get google scholar title and abstract
-    limit = 10
+    session.clear()
+    limit = 30
     for index, item in enumerate(search_query, 1):
         # a.append('PaperID: ' + str(index) + 'Title: ' + item.bib['title'] + 'Abstract: ' + item.bib['abstract'])
         # print('PaperID: ' + str(index))
@@ -56,7 +56,6 @@ def select():
     listc = [[x, y, z] for x, y, z in zip(i, t, a)]
     # session.pop('abstract', None)
     # session.pop('title', None)
-    # session.clear()
     session['abstract'] = a
     session['title'] = t
 

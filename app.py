@@ -45,6 +45,7 @@ def select():
         i.append(index)
         t.append(item.bib['title'])
         # print('Title: ' + item.bib['title'])
+
         if 'abstract' in item.bib:
             a.append(item.bib['abstract'])
             # print('Abstract: ' + item.bib['abstract'])
@@ -53,6 +54,8 @@ def select():
             # print('Abstract: ' + 'none')
         if index == limit:
             break
+
+
     listc = [[x, y, z] for x, y, z in zip(i, t, a)]
     # session.pop('abstract', None)
     # session.pop('title', None)

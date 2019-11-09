@@ -13,7 +13,7 @@ from stemming.porter2 import stem
 
 app = Flask(__name__)
 app.secret_key = "Super_Secret_Key"
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
 
 @app.route('/')
@@ -38,7 +38,7 @@ def select():
 
     # get google scholar title and abstract
     session.clear()
-    limit = 30
+    limit = 20
     for index, item in enumerate(search_query, 1):
         # a.append('PaperID: ' + str(index) + 'Title: ' + item.bib['title'] + 'Abstract: ' + item.bib['abstract'])
         # print('PaperID: ' + str(index))
